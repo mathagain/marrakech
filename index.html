@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>마라케시 사전 학습 | 다시수학</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blue: #4262ff; --blue-pressed: #2a41b6;
+  --yellow: #ffd02f; --yellow-dark: #746019; --surface-yellow: #fff8e0;
+  --coral: #ff9999; --coral-light: #ffc6c6; --coral-dark: #600000;
+  --rose-light: #fde0f0; --teal: #0fbcb0; --teal-light: #c3faf5; --moss: #187574;
+  --orange-light: #ffe6cd; --success: #00b473;
+  --ink-fixed: #1c1c1e; --slate-fixed: #555a6a;
+  --bg: #ffffff; --card: #ffffff; --soft: #f7f8fa;
+  --text: #1c1c1e; --text2: #555a6a; --text3: #6b6f7e;
+  --line: #e0e2e8; --line-soft: #eef0f3; --line-strong: #c7cad5;
+  --btn-bg: #1c1c1e; --btn-fg: #ffffff; --btn-press: #2c2c34;
+  --btn-off-bg: #e0e2e8; --btn-off-fg: #a5a8b5; --focus: #4262ff;
+  --sh2: 0 4px 12px rgba(5, 0, 56, .06);
+  --sh3: 0 12px 32px -4px rgba(5, 0, 56, .08);
+  --sh4: 0 16px 48px -8px rgba(5, 0, 56, .12);
+  --font: "Roobert PRO", "Noto Sans KR", "Noto Sans", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #131316; --card: #1b1b20; --soft: #1b1b20;
+    --text: #f3f3f6; --text2: #c0c3cf; --text3: #a5a8b5;
+    --line: #33343c; --line-soft: #2a2b32; --line-strong: #4a4c57;
+    --btn-bg: #ffffff; --btn-fg: #1c1c1e; --btn-press: #e0e2e8;
+    --btn-off-bg: #33343c; --btn-off-fg: #6b6f7e; --focus: #8ea0ff;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #131316; --card: #1b1b20; --soft: #1b1b20;
+  --text: #f3f3f6; --text2: #c0c3cf; --text3: #a5a8b5;
+  --line: #33343c; --line-soft: #2a2b32; --line-strong: #4a4c57;
+  --btn-bg: #ffffff; --btn-fg: #1c1c1e; --btn-press: #e0e2e8;
+  --btn-off-bg: #33343c; --btn-off-fg: #6b6f7e; --focus: #8ea0ff;
+}
+*, *::before, *::after { box-sizing: inherit; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font: 400 16px/1.6 var(--font); word-break: keep-all; overflow-wrap: break-word;
+}
+h1, h2, h3, p { margin: 0; }
+button { font-family: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+[hidden] { display: none !important; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.wrap { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+.promo {
+  background: var(--ink-fixed); color: #fff; font: 500 14px/1.4 var(--font);
+  padding: 10px 16px; text-align: center;
+}
+.tag-yellow {
+  display: inline-block; background: var(--surface-yellow); color: var(--yellow-dark);
+  font: 600 13px/1.4 var(--font); padding: 3px 10px; border-radius: 9999px;
+}
+.promo .tag-yellow { background: var(--yellow); color: var(--ink-fixed); margin-right: 8px; }
+.nav {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30;
+  background: var(--bg); border-bottom: 1px solid var(--line-soft);
+}
+.nav-inner { display: flex; align-items: center; gap: 24px; min-height: 68px; }
+.brand { display: flex; align-items: center; gap: 12px; flex: none; }
+.brand img { height: 44px; width: auto; display: block; }
+.brand-name { font: 500 24px/1.2 var(--font); letter-spacing: -.5px; }
+.brand .tag-yellow { margin-left: 2px; }
+.tabs { display: flex; gap: 8px; margin-left: auto; overflow-x: auto; padding: 4px 2px; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+@media (max-width: 1023px) {
+  .nav-inner { flex-wrap: wrap; gap: 4px 16px; padding-top: 8px; padding-bottom: 8px; min-height: 0; }
+  .tabs { order: 3; width: 100%; margin-left: 0; }
+}
+@media (max-width: 479px) {
+  .brand-name { font-size: 20px; }
+  .brand img { height: 38px; }
+  .brand .tag-yellow { display: none; }
+}
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 44px; padding: 10px 24px; border-radius: 9999px; border: 1px solid transparent;
+  font: 500 16px/1.3 var(--font); cursor: pointer; text-align: center;
+  transition: background-color .16s ease, transform .16s ease, border-color .16s ease;
+}
+.btn:active { transform: scale(.98); }
+.btn-primary { background: var(--btn-bg); color: var(--btn-fg); }
+.btn-primary:active { background: var(--btn-press); }
+.btn-primary:disabled { background: var(--btn-off-bg); color: var(--btn-off-fg); cursor: not-allowed; transform: none; }
+.btn-secondary { background: transparent; color: var(--text); border-color: var(--line-strong); }
+.btn-secondary:active { background: var(--soft); }
+.btn-secondary:disabled { color: var(--btn-off-fg); border-color: var(--line); cursor: not-allowed; transform: none; }
+.btn-link { background: none; border: 0; padding: 4px 2px; min-height: 0; color: var(--blue); font: 500 14px/1.4 var(--font); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+:root[data-theme="dark"] .btn-link { color: #8ea0ff; }
+.ico { width: 20px; height: 20px; flex: none; }
+.pill {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 18px;
+  border-radius: 9999px; border: 1px solid var(--line); background: var(--card); color: var(--text3);
+  font: 500 15px/1.3 var(--font); cursor: pointer; white-space: nowrap;
+  transition: background-color .16s ease, color .16s ease, border-color .16s ease;
+}
+.pill[aria-pressed="true"], .pill[aria-selected="true"] { background: var(--btn-bg); color: var(--btn-fg); border-color: var(--btn-bg); }
+.pill:active { transform: scale(.98); }
+.pill-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill-sm { min-height: 36px; padding: 4px 14px; font-size: 14px; }
+.step-pill { min-width: 44px; justify-content: center; padding: 6px 12px; }
+.step-pill.done { border-color: var(--success); color: var(--success); }
+.step-pill.done[aria-current="true"] { background: var(--success); color: #fff; border-color: var(--success); }
+.panel { padding-bottom: 56px; }
+.panel-head { padding: 40px 0 28px; }
+.display {
+  font: 500 clamp(30px, 4.2vw, 46px)/1.2 var(--font); letter-spacing: -1px;
+}
+.subtitle { margin-top: 8px; font: 400 18px/1.6 var(--font); color: var(--text2); max-width: 46ch; }
+.workspace { display: grid; grid-template-columns: minmax(0, 560px) minmax(0, 1fr); gap: 32px; align-items: start; }
+@media (max-width: 959px) { .workspace { grid-template-columns: minmax(0, 1fr); } .board-col { max-width: 600px; } }
+@media (min-width: 960px) { .board-col { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 92px); } }
+.side-col { display: grid; gap: 16px; min-width: 0; }
+.board-frame {
+  background-color: #fff; background-image: radial-gradient(#d6d9e2 1.2px, transparent 1.3px); background-size: 18px 18px;
+  border: 1px solid var(--line-soft); border-radius: 16px; box-shadow: var(--sh3); padding: 6px; position: relative;
+}
+.board-mount svg { display: block; width: 100%; height: auto; touch-action: manipulation; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 14px 4px 0; padding: 0; list-style: none; font: 400 14px/1.5 var(--font); color: var(--text2); }
+.legend li { display: inline-flex; align-items: center; gap: 8px; }
+.sw { width: 16px; height: 16px; border-radius: 5px; border: 2px solid; flex: none; }
+.sw-hot { background: #ff9c9c; border-color: #e0454a; }
+.sw-warm { background: #ffcf8f; border-color: #f0a03a; }
+.sw-zone { background: rgba(66, 98, 255, .1); border: 2px dashed var(--blue); }
+.sw-track { border: 0; height: 0; width: 20px; border-top: 3px dotted #9ea3b3; border-radius: 0; }
+.sw-rug { border-color: currentColor; }
+.card { background: var(--card); border: 1px solid var(--line-soft); border-radius: 16px; padding: 20px 24px; }
+.card-title { font: 500 18px/1.4 var(--font); margin-bottom: 12px; }
+.card-title small { font: 400 14px/1.4 var(--font); color: var(--text3); margin-left: 6px; }
+.card + .card { margin-top: 0; }
+.stack { display: grid; gap: 18px; }
+.muted { color: var(--text3); font-size: 14px; line-height: 1.5; }
+.feature { border-radius: 28px; padding: 22px 26px; color: var(--ink-fixed); }
+.feature-teal { background: var(--teal-light); }
+.feature-rose { background: var(--rose-light); }
+.feature-orange { background: var(--orange-light); }
+.feature-coral { background: var(--coral-light); }
+.guide { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 14px; align-items: start; }
+.guide-assam { width: 76px; height: 88px; }
+.bubble {
+  position: relative; background: #fff; color: var(--ink-fixed); border-radius: 20px; padding: 14px 18px;
+  font: 400 16px/1.65 var(--font);
+}
+.bubble::before {
+  content: ""; position: absolute; left: -8px; top: 26px; width: 16px; height: 16px; background: #fff;
+  transform: rotate(45deg); border-radius: 3px;
+}
+.bubble b, .bubble strong { font-weight: 600; }
+.bubble .hot { color: #b5262c; font-weight: 600; }
+.bubble .warm { color: #a25e00; font-weight: 600; }
+.bubble p + p { margin-top: 8px; }
+@media (max-width: 479px) { .guide { grid-template-columns: 56px minmax(0, 1fr); gap: 10px; } .guide-assam { width: 56px; height: 66px; } .feature { padding: 18px 16px; } }
+.field + .field { margin-top: 18px; }
+.field-label { font: 500 15px/1.4 var(--font); margin-bottom: 8px; color: var(--text); }
+.field-label span { color: var(--text3); font-weight: 400; margin-left: 6px; }
+.roll-row { display: flex; align-items: center; gap: 18px; margin-top: 20px; flex-wrap: wrap; }
+.die {
+  width: 72px; height: 72px; border-radius: 18px; background: #fff; border: 2px solid var(--ink-fixed); box-shadow: var(--sh2);
+  display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); padding: 10px; flex: none;
+}
+.die i { width: 13px; height: 13px; border-radius: 50%; background: var(--ink-fixed); place-self: center; }
+.die.rolling { animation: tumble .5s linear infinite; }
+@keyframes tumble { 0% { transform: rotate(0) scale(1); } 50% { transform: rotate(180deg) scale(1.1); } 100% { transform: rotate(360deg) scale(1); } }
+.result { margin-top: 16px; min-height: 52px; font: 500 16px/1.6 var(--font); }
+.result b { font-weight: 600; }
+.faces { display: flex; gap: 8px; flex-wrap: wrap; margin: 4px 0 6px; }
+.face {
+  width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; font: 600 20px/1 var(--font);
+  border: 2.5px solid; color: var(--ink-fixed); background: #fff;
+}
+.face.hot, .badge-dice.hot { border-color: #e0454a; }
+.face.warm, .badge-dice.warm { border-color: #f0a03a; }
+.tally { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 14px; }
+.tally-col { display: grid; justify-items: center; gap: 4px; }
+.tally-pct { font: 500 14px/1.3 var(--font); color: var(--text2); }
+.tally-bar { width: 100%; height: 96px; background: var(--soft); border-radius: 12px; display: flex; align-items: flex-end; overflow: hidden; border: 1px solid var(--line-soft); }
+.tally-bar span { display: block; width: 100%; height: 0; border-radius: 10px 10px 0 0; transition: height .3s ease; }
+.tally-col.hot .tally-bar span { background: #ff9c9c; }
+.tally-col.warm .tally-bar span { background: #ffcf8f; }
+.tally-count { font: 600 16px/1.2 var(--font); }
+.tally-where { font: 400 12px/1.4 var(--font); color: var(--text3); min-height: 34px; text-align: center; }
+.tally-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+.tag-u { display: inline-block; background: var(--surface-yellow); color: var(--yellow-dark); font: 600 12px/1.4 var(--font); padding: 1px 8px; border-radius: 9999px; }
+.progress { display: flex; flex-wrap: wrap; gap: 8px; }
+.stage-title { font: 500 22px/1.3 var(--font); margin: 14px 0 2px; letter-spacing: -.3px; }
+.action-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.dir-btn { padding-left: 20px; padding-right: 24px; }
+.steps-hint { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; font: 400 15px/1.5 var(--font); color: var(--text2); }
+.steps-hint li { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 10px; align-items: start; }
+.steps-hint .n { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font: 600 14px/1 var(--font); background: var(--soft); color: var(--text2); border: 1px solid var(--line); }
+.steps-hint li.on { color: var(--text); }
+.steps-hint li.on .n { background: var(--btn-bg); color: var(--btn-fg); border-color: var(--btn-bg); }
+.steps-hint li.done .n { background: var(--success); color: #fff; border-color: var(--success); }
+.owners { display: flex; flex-wrap: wrap; gap: 8px 14px; margin: 0; padding: 0; list-style: none; font: 400 14px/1.4 var(--font); color: var(--text2); }
+.owners li { display: inline-flex; align-items: center; gap: 8px; }
+.owners .sw-rug { width: 26px; height: 16px; border-radius: 5px; }
+.mode-toggle { display: flex; gap: 6px; padding: 4px; background: var(--soft); border-radius: 9999px; width: fit-content; max-width: 100%; }
+.mode-toggle .pill { border-color: transparent; background: transparent; }
+.mode-toggle .pill[aria-pressed="true"] { background: var(--btn-bg); color: var(--btn-fg); }
+.scrim {
+  position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: max(16px, env(safe-area-inset-top, 0px)) 16px max(16px, env(safe-area-inset-bottom, 0px));
+  background: rgba(28, 28, 30, .46); animation: fade .18s ease;
+}
+.modal {
+  width: min(100%, 520px); max-height: 100%; overflow: auto; background: var(--card); color: var(--text);
+  border-radius: 28px; padding: 30px 30px 26px; box-shadow: var(--sh4); animation: pop .2s ease;
+}
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes pop { from { opacity: 0; transform: scale(.96) translateY(6px); } to { opacity: 1; transform: none; } }
+.m-icon { width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; margin-bottom: 14px; }
+.m-icon svg { width: 34px; height: 34px; }
+.m-icon.ok { background: #d9f6ea; color: #008a57; }
+.m-icon.no { background: var(--coral-light); color: #a3232a; }
+.m-icon.star { background: var(--surface-yellow); color: var(--yellow-dark); }
+.m-title { font: 500 24px/1.4 var(--font); letter-spacing: -.3px; }
+.m-msg { margin-top: 8px; color: var(--text2); font: 400 16px/1.65 var(--font); }
+.m-msg + .m-msg { margin-top: 6px; }
+.m-stat { margin-top: 16px; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.m-stat strong { font: 500 40px/1.1 var(--font); letter-spacing: -1px; }
+.m-stat span { color: var(--text2); font-size: 15px; }
+.mtable { width: 100%; border-collapse: collapse; margin-top: 16px; font: 400 15px/1.4 var(--font); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.mtable th, .mtable td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--line-soft); }
+.mtable th { font-weight: 500; color: var(--text3); font-size: 13px; background: var(--soft); }
+.mtable tr:last-child td { border-bottom: 0; }
+.mtable tr.pick td { background: var(--surface-yellow); color: #3b3110; font-weight: 500; }
+.mtable td.num, .mtable th.num { text-align: right; white-space: nowrap; }
+.m-note { margin-top: 10px; font-size: 13px; color: var(--text3); line-height: 1.5; }
+.m-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+.rules { padding: 56px 0 64px; border-top: 1px solid var(--line-soft); }
+.rules h2 { font: 500 clamp(26px, 3vw, 36px)/1.25 var(--font); letter-spacing: -.5px; margin-bottom: 24px; }
+.rule-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 899px) { .rule-grid { grid-template-columns: minmax(0, 1fr); } }
+.rule-grid .feature { padding: 28px; display: flex; flex-direction: column; gap: 10px; }
+.rule-grid h3 { font: 500 22px/1.3 var(--font); }
+.rule-grid p { font: 400 16px/1.65 var(--font); color: #34343c; }
+.stat { font: 500 64px/1.1 var(--font); letter-spacing: -1.5px; }
+.footer { background: var(--ink-fixed); color: #fff; padding: 40px 0 44px; font: 400 14px/1.6 var(--font); }
+.footer p { color: #a5a8b5; }
+.footer strong { font-weight: 500; color: #fff; font-size: 16px; }
+.board-svg .cell { fill: #fff; stroke: #e0e2e8; stroke-width: 1.5; }
+.board-svg .cell.alt { fill: #f7f8fa; }
+.board-svg .board-edge { fill: none; stroke: #1c1c1e; stroke-width: 2.5; rx: 3; }
+.board-svg .track-band { fill: none; stroke: #f0f1f5; stroke-width: 16; stroke-linecap: round; }
+.board-svg .track-dash { fill: none; stroke: #b4b8c6; stroke-width: 2.5; stroke-linecap: round; stroke-dasharray: 1 7; }
+.board-svg text { font-family: var(--font); }
+.board-svg .hl rect { stroke-width: 2.5; }
+.board-svg .hl-hot rect { fill: #ff9c9c; fill-opacity: .6; stroke: #e0454a; }
+.board-svg .hl-warm rect { fill: #ffcf8f; fill-opacity: .72; stroke: #f0a03a; }
+.board-svg .hl-hot circle { stroke: #e0454a; }
+.board-svg .hl-warm circle { stroke: #f0a03a; }
+.board-svg .hl circle { fill: #fff; stroke-width: 2.5; }
+.board-svg .hl text { fill: #1c1c1e; font-weight: 600; font-size: 15px; text-anchor: middle; dominant-baseline: central; }
+.board-svg .hl.dim { opacity: .35; }
+.board-svg .hint-cell { animation: blink .5s ease-in-out 4 alternate; pointer-events: none; }
+@keyframes blink { from { opacity: .25; } to { opacity: 1; } }
+.board-svg .route { fill: none; stroke: #4262ff; stroke-width: 4.5; stroke-linecap: round; stroke-dasharray: 1 10; animation: flow 1s linear infinite; pointer-events: none; }
+@keyframes flow { to { stroke-dashoffset: -11; } }
+.board-svg .ring { fill: none; stroke: #4262ff; stroke-width: 4; transform-box: fill-box; transform-origin: center; animation: ring .9s ease-out 2 forwards; pointer-events: none; }
+@keyframes ring { from { transform: scale(.55); opacity: 1; } to { transform: scale(1.5); opacity: 0; } }
+.board-svg .rug.pop { transform-box: fill-box; transform-origin: center; animation: rugpop .28s ease; }
+@keyframes rugpop { from { opacity: 0; transform: scale(.7); } to { opacity: 1; transform: none; } }
+.board-svg .zone { fill: rgba(66, 98, 255, .08); stroke: #4262ff; stroke-width: 2.5; stroke-dasharray: 7 6; cursor: pointer; animation: march 1.4s linear infinite; }
+.board-svg .zone.sel { fill: rgba(66, 98, 255, .24); stroke-dasharray: none; stroke-width: 3.5; animation: none; }
+.board-svg .zone:focus-visible { outline: none; stroke-width: 4.5; fill: rgba(66, 98, 255, .2); }
+@keyframes march { to { stroke-dashoffset: -26; } }
+.board-svg .ghost { fill: rgba(66, 98, 255, .12); stroke: #4262ff; stroke-width: 2.5; stroke-dasharray: 3 5; pointer-events: none; }
+.board-svg .ghost-hit { fill: transparent; cursor: pointer; }
+.board-svg .ghost-hit:focus-visible { outline: none; fill: rgba(66, 98, 255, .22); }
+.board-svg .assam-body { pointer-events: none; }
+@media (prefers-reduced-motion: reduce) {
+  .board-svg .route, .board-svg .zone, .board-svg .ring, .board-svg .hint-cell, .die.rolling, .scrim, .modal, .board-svg .rug.pop { animation: none; }
+  .btn, .pill, .tally-bar span { transition: none; }
+}
+@media (max-width: 959px) { .board-col { margin-inline: auto; width: 100%; } }
+@media (max-width: 479px) { .tabs .pill { padding: 6px 14px; font-size: 14px; } }
+.chip { display: inline-block; padding: 2px 12px; border-radius: 9999px; border: 2px solid; font: 600 14px/1.5 var(--font); vertical-align: middle; }
+.chip-lg { font-size: 22px; padding: 4px 18px; letter-spacing: 0; }
+.chip-hot { background: #ffc6c6; border-color: #e0454a; color: #5b0d10; }
+.chip-mid { background: #ffd9c2; border-color: #ee7a36; color: #5a2a06; }
+.chip-warm { background: #ffe9c6; border-color: #f0a03a; color: #5a3600; }
+.chip-none { background: #d9f6ea; border-color: #00b473; color: #005c3b; }
+.meter { display: inline-flex; gap: 3px; vertical-align: middle; margin-right: 8px; }
+.meter i { width: 9px; height: 18px; border-radius: 3px; background: #e6e8ee; border: 2px solid transparent; }
+.meter-hot i.on { background: #ff9c9c; border-color: #e0454a; }
+.meter-mid i.on { background: #ffb38a; border-color: #ee7a36; }
+.meter-warm i.on { background: #ffcf8f; border-color: #f0a03a; }
+.m-stat strong { display: inline-flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.tally-where { line-height: 1.35; }
+.board-svg .hl-gray rect { fill: #e3e5eb; fill-opacity: .9; stroke: #a5a8b5; }
+.board-svg .hl-gray circle { stroke: #8b8fa0; }
+.board-svg .hl.dim { opacity: .6; }
+.sw-gray { background: #e3e5eb; border-color: #a5a8b5; }
+.face.neutral { border-color: #c7cad5; }
+.tally-col.neutral .tally-bar span { background: #c7cad5; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <g id="assam-sym">
+      <ellipse cx="0" cy="23" rx="14" ry="3.4" fill="#050038" fill-opacity=".14"/>
+      <path d="M-15 22 C-15 8 -8 4 0 4 C8 4 15 8 15 22 Z" fill="#0fbcb0" stroke="#1c1c1e" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M-9 13 H9" stroke="#fff" stroke-width="2.4" stroke-linecap="round" opacity=".85"/>
+      <circle cx="0" cy="-4" r="12" fill="#ffe6cd" stroke="#1c1c1e" stroke-width="2"/>
+      <path d="M-9.5 -12 L-7.5 -27 H7.5 L9.5 -12 Z" fill="#ff8f8f" stroke="#1c1c1e" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M-8.6 -17 H8.6" stroke="#1c1c1e" stroke-width="1.6" opacity=".55"/>
+      <path d="M0 -27 Q7 -26 7 -18" fill="none" stroke="#1c1c1e" stroke-width="1.8" stroke-linecap="round"/>
+      <circle cx="7" cy="-17" r="1.8" fill="#1c1c1e"/>
+      <circle cx="-4.6" cy="-4" r="1.7" fill="#1c1c1e"/>
+      <circle cx="4.6" cy="-4" r="1.7" fill="#1c1c1e"/>
+      <circle cx="-8" cy="0" r="2.1" fill="#ff9999" opacity=".65"/>
+      <circle cx="8" cy="0" r="2.1" fill="#ff9999" opacity=".65"/>
+      <path d="M-4.4 2 Q0 6.2 4.4 2" fill="none" stroke="#1c1c1e" stroke-width="1.8" stroke-linecap="round"/>
+    </g>
+  </defs>
+</svg>
+
+<div class="promo"><span class="tag-yellow">사전 학습</span>게임을 하기 전에 미리 연습해요. 주사위 여섯 면은 1, 2, 2, 3, 3, 4예요.</div>
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <div class="brand">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABYCAMAAABCvhA7AAAAflBMVEXncjhDiJjvozBylUP7+/kAAABpjjg6gpPrp17n0a3aoFEyeHnyd2zupjxjjUWft5RDhZPuczjtoDRoc3L4fCR0lUc4iaU0fY+uyc7ecDv1fEjrsZQ4iZ2LpmJRlJ7oekQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAkDrzfAAAAIHRSTlP9/f37/gD//v7/IAYKn0//m7RNCAioj///ZJP/Iv8a9bwHGLUAAASBSURBVHjarZmLlpowEIZHMdxRNFB0qfj+b9kQQshlkox7+m97umD4HP9MJpMKjDMG1zELaxyBraPYwFgN0EUENWMtUwLOIMZVdDFq/YFzSt06TqEBMoqAA6u7M0E1DArNRhJ6FEGQyOeO7ehrRpP4oGeadktgJKJH1hHR3Y42ns6j6OFMVb2xNTpHwOa9sUYgZVmm0XlWXXy98wi63J4AxOzBQl8wVRG0DqXyozbR+TuFzhy0Oer/ou1hLrpNG/IOoZ2JKaPobKdlgXQ0p6vco1VTeYmhtSW3XOSckr0cvaCrw5kyhtZsCKwc7gVt/F5F0Sk2e3R20CVyEUAn2ONV1z4r0JKCzvKb9huvI2DAwEJXCXSK/b4+EAto6CwHP6G9NHHyzUu/ADqLpwkgDlREdBWPukbmjYbeyUGvayTbSOjd6YAd75F3CIqCTpDHK8dm0V8zyGq8xVdjDXiypdEJsi6q3hKBFHonX3JTyLZbujtiCn1sM9Um+XyWh9ClWwcjUaO7DPwHdHpv1Ghwc81zyEFnZHTpNh8pQ/QsWrphfUjp9UzOHbtZWC25eTIryQhf93zj0eD5sjpVMlp1weT++vp9Ewzk1v1B9mNQB44rMWjqgeOxn5OAxr4yDjR219Q7ev1JHTpGNTFN0pNOx7yi5R+4hgXbGPkJ18PgIyTQI3XUrAX4kRIvrn+V9L12e0KceBdx9Sck8Ro32LCeYT8Q10cOX9jSn1I6gmbQmnEGdYdBkGPMQv3bN4uexp8PUNgiRU4k6UO6iJqmlhHRp+Y4/tP0YkSyCHvZ0D9E9B0Jepqmwr/bs+a7qO9//YkTNf52Kn6BFkegqoygT3K3eP4CLfelOYye1L7khZ1Eqx0vgn6qXX8iocu5DJDhvnyBXosJ80OVHnxcso8uTiFDVjAH1xDZNInlebGNxjNEjoICyetlQbyWzE/lkbG8FtmH5J5gy9AZPnuyvQnndbFrXTNKXgpyLzMqnGyii1jlO2L3a/PeSYbRT6zRep782XQ1X9RUBtAT2sIhmeKjUTtM9BNH36ZU1Mrr0kMvTj6nou5xO6JeF3hT6/rRBHNv/n2G9Gofw2oSNpHWatwyuZjWzN6urBqyrF1DgyReqd4htcsUaxY+ka1AFj7O/OSYRduBLXS3hhTPUEIz3jTcriGzTrtPujwVOgfdfQap17NhgzrSlkG0mYKOJz7anrzZrSQO2lw4zxS6slfK7HjiTGNh5nQy6rmaP2BfRwz5Bv1di2MZMuHoD5UdmcbJ2cCaLxszRk0+/eUJvZ3sQ0vGQfMd3VLD9prgwELv5VdxsnVvqWSfLXdet/41vNlbd9JMvpgYx9JHmbU2NcYJLOnJvZX/wyFMTMGBW+dG8VT70jp4+k67fz9plrMe219FwI1xbpSmHDo+wXFvPxozbjxozNuhxvh9e2iAQemIYGhbdcd8Z1GKV4muztoFt7tmOOa5V6W5jnpwXzPFzXQJDHTRzDiEsogMs8GyIRL1HvbA2hj6CLsPvrt33cD9fn9F7dgG8jXwPjzsH87gc6MK4lG1AAAAAElFTkSuQmCC" alt="다시수학 로고" width="45" height="44">
+      <span class="brand-name">마라케시</span>
+      <span class="tag-yellow">다시수학</span>
+    </div>
+    <div class="tabs" role="tablist" aria-label="학습 모드">
+      <button class="pill" role="tab" id="tab-explore" aria-controls="panel-explore" aria-selected="true">경로 탐색기</button>
+      <button class="pill" role="tab" id="tab-defense" aria-controls="panel-defense" aria-selected="false" tabindex="-1">수비 모드</button>
+      <button class="pill" role="tab" id="tab-attack" aria-controls="panel-attack" aria-selected="false" tabindex="-1">공격 모드</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="panel" id="panel-explore" role="tabpanel" aria-labelledby="tab-explore">
+    <div class="panel-head">
+      <h1 class="display">아쌈은 어디에 도착할까?</h1>
+      <p class="subtitle">위치와 방향을 고르면 갈 수 있는 칸 4개가 회색으로 나타나요. 주사위를 던지면 색깔이 나타나요.</p>
+    </div>
+    <div class="workspace">
+      <div class="board-col">
+        <div class="board-frame"><div class="board-mount" id="board-explore"></div></div>
+        <ul class="legend" id="ex-legend"></ul>
+      </div>
+      <div class="side-col">
+        <div class="feature feature-teal guide">
+          <svg class="guide-assam" viewBox="-24 -30 48 56" aria-hidden="true"><use href="#assam-sym"/></svg>
+          <div class="bubble">아쌈의 위치와 방향을 골라보세요! 아쌈이 갈 수 있는 4칸이 <b>회색</b>으로 나타나요. 어느 칸에 도착할 가능성이 높을지 생각해 보고 주사위를 던져 보세요. 던지고 나면 색깔로 알려 줄게요!</div>
+        </div>
+        <div class="card">
+          <div class="field">
+            <div class="field-label">1. 아쌈의 위치</div>
+            <div class="pill-row" id="pos-pills" role="group" aria-label="아쌈의 위치"></div>
+          </div>
+          <div class="field">
+            <div class="field-label">2. 가는 방향 <span>아쌈은 위쪽을 보고 있어요</span></div>
+            <div class="pill-row" id="dir-pills-explore" role="group" aria-label="가는 방향"></div>
+          </div>
+          <div class="roll-row">
+            <button class="btn btn-primary" id="btn-roll" disabled></button>
+            <div class="die" id="die" role="img" aria-label="주사위"></div>
+          </div>
+          <p class="result" id="result-explore" role="status" aria-live="polite">방향을 고르면 주사위를 던질 수 있어요.</p>
+        </div>
+        <div class="card">
+          <div class="card-title">주사위와 던진 기록</div>
+          <div class="faces" id="faces" aria-label="주사위 여섯 면 1, 2, 2, 3, 3, 4"></div>
+          <p class="muted">2와 3은 두 면씩 있어서 더 자주 나와요.</p>
+          <div class="tally" id="tally"></div>
+          <div class="tally-foot">
+            <span class="muted" id="tally-total">아직 던지지 않았어요.</span>
+            <button class="btn-link" id="btn-reset-tally" type="button">기록 지우기</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-defense" role="tabpanel" aria-labelledby="tab-defense" hidden>
+    <div class="panel-head">
+      <h1 class="display">벌금을 피하는 길은?</h1>
+      <p class="subtitle">양탄자가 깔린 보드판에서 가장 안전한 방향을 찾아요.</p>
+    </div>
+    <div class="workspace">
+      <div class="board-col">
+        <div class="board-frame"><div class="board-mount" id="board-defense"></div></div>
+        <ul class="legend" id="def-legend"></ul>
+      </div>
+      <div class="side-col">
+        <div class="feature feature-rose guide">
+          <svg class="guide-assam" viewBox="-24 -30 48 56" aria-hidden="true"><use href="#assam-sym"/></svg>
+          <div class="bubble">
+            <p>아쌈이 어느 방향으로 가야 벌금을 가장 적게 낼까요?</p>
+            <p>친구의 양탄자를 밟으면 벌금을 내요. <span class="hot">주사위 2, 3</span>이 나오는 칸을 잘 살펴보세요!</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">문제 고르기</div>
+          <div class="progress" id="def-progress" role="group" aria-label="문제 번호"></div>
+          <div class="stage-title" id="def-stage-title"></div>
+          <div class="field" style="margin-top:16px">
+            <div class="field-label">어느 쪽으로 갈까요?</div>
+            <div class="action-row" id="def-dirs"></div>
+          </div>
+          <div class="action-row" style="margin-top:14px">
+            <button class="btn btn-secondary" id="btn-hint" type="button"></button>
+            <button class="btn btn-primary" id="btn-next-def" type="button" hidden>다음 문제</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-attack" role="tabpanel" aria-labelledby="tab-attack" hidden>
+    <div class="panel-head">
+      <h1 class="display">길목을 막아 볼까?</h1>
+      <p class="subtitle">아쌈 옆에 양탄자를 놓아서 상대방이 밟게 만들어요.</p>
+    </div>
+    <div class="workspace">
+      <div class="board-col">
+        <div class="board-frame"><div class="board-mount" id="board-attack"></div></div>
+        <ul class="legend" id="att-legend"></ul>
+      </div>
+      <div class="side-col">
+        <div class="feature feature-orange guide">
+          <svg class="guide-assam" viewBox="-24 -30 48 56" aria-hidden="true"><use href="#assam-sym"/></svg>
+          <div class="bubble" id="att-guide"></div>
+        </div>
+        <div class="card">
+          <div class="mode-toggle" id="att-mode" role="group" aria-label="난이도">
+            <button class="pill" type="button" data-mode="easy" aria-pressed="true">쉬운 난이도</button>
+            <button class="pill" type="button" data-mode="hard" aria-pressed="false">어려운 난이도</button>
+          </div>
+          <div class="field" style="margin-top:18px">
+            <div class="field-label">문제 고르기</div>
+            <div class="progress" id="att-progress" role="group" aria-label="문제 번호"></div>
+          </div>
+        </div>
+        <div class="card">
+          <ol class="steps-hint" id="att-steps"></ol>
+          <div class="field" id="att-dir-field" style="margin-top:16px" hidden>
+            <div class="field-label">상대방이 고를 가장 안전한 방향은?</div>
+            <div class="action-row" id="att-dirs"></div>
+          </div>
+          <div class="action-row" style="margin-top:16px">
+            <button class="btn btn-secondary" id="btn-reset-place" type="button">다시 놓기</button>
+            <button class="btn btn-primary" id="btn-next-att" type="button" hidden>다음 문제</button>
+          </div>
+          <p class="muted" id="att-note" style="margin-top:12px"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<section class="rules">
+  <div class="wrap">
+    <h2>마라케시 기본 규칙</h2>
+    <div class="rule-grid">
+      <div class="feature feature-teal">
+        <div class="stat">7×7</div>
+        <h3>보드판은 49칸</h3>
+        <p>가로 7칸, 세로 7칸이라서 모두 49칸이에요. 아쌈은 이 위를 걸어 다녀요.</p>
+      </div>
+      <div class="feature feature-rose">
+        <div class="faces" id="rule-faces" aria-hidden="true"></div>
+        <h3>주사위는 여섯 면</h3>
+        <p>1과 4는 한 면씩, 2와 3은 두 면씩이에요. 그래서 2나 3이 나올 가능성이 더 높아요.</p>
+      </div>
+      <div class="feature feature-orange">
+        <div class="stat" aria-hidden="true">U</div>
+        <h3>U턴 길</h3>
+        <p>보드 밖으로 나가면 테두리 길을 따라 돌아서 옆줄로 들어와요. 밖에서 도는 길은 걸음 수에 세지 않아요.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <strong>마라케시 사전 학습</strong>
+    <p>다시수학 교구 활동을 준비하는 연습용 앱이에요. 실제 보드의 U턴 화살표와 함께 확인해 보세요.</p>
+  </div>
+</footer>
+
+<div id="modal-root"></div>
+
+<script>
+const SIZE = 7;
+const DIRS = { N: [-1, 0], E: [0, 1], S: [1, 0], W: [0, -1] };
+const LEFT_OF = { N: 'W', W: 'S', S: 'E', E: 'N' };
+const RIGHT_OF = { N: 'E', E: 'S', S: 'W', W: 'N' };
+const DIR_NAME = { N: '위쪽', E: '오른쪽', S: '아래쪽', W: '왼쪽' };
+const CHOICE_NAME = { F: '직진', L: '좌회전', R: '우회전' };
+const CHOICES = ['F', 'L', 'R'];
+const DIE_FACES = [1, 2, 2, 3, 3, 4];
+const PROB = { 1: 1 / 6, 2: 1 / 3, 3: 1 / 3, 4: 1 / 6 };
+function turn(facing, choice) {
+  if (choice === 'L') return LEFT_OF[facing];
+  if (choice === 'R') return RIGHT_OF[facing];
+  return facing;
+}
+function stepOnce(r, c, d) {
+  const [dr, dc] = DIRS[d];
+  const nr = r + dr, nc = c + dc;
+  if (nr >= 1 && nr <= SIZE && nc >= 1 && nc <= SIZE) {
+    return { r: nr, c: nc, d, uturn: null };
+  }
+  let out;
+  if (d === 'N') {
+    if (c === 1) out = { r: 1, c: 1, d: 'E', kind: 'corner', corner: 'TL' };
+    else out = { r: 1, c: c % 2 === 0 ? c + 1 : c - 1, d: 'S', kind: 'pair' };
+  } else if (d === 'S') {
+    if (c === SIZE) out = { r: SIZE, c: SIZE, d: 'W', kind: 'corner', corner: 'BR' };
+    else out = { r: SIZE, c: c % 2 === 1 ? c + 1 : c - 1, d: 'N', kind: 'pair' };
+  } else if (d === 'W') {
+    if (r === 1) out = { r: 1, c: 1, d: 'S', kind: 'corner', corner: 'TL' };
+    else out = { r: r % 2 === 0 ? r + 1 : r - 1, c: 1, d: 'E', kind: 'pair' };
+  } else {
+    if (r === SIZE) out = { r: SIZE, c: SIZE, d: 'N', kind: 'corner', corner: 'BR' };
+    else out = { r: r % 2 === 1 ? r + 1 : r - 1, c: SIZE, d: 'W', kind: 'pair' };
+  }
+  return {
+    r: out.r, c: out.c, d: out.d,
+    uturn: { kind: out.kind, corner: out.corner || null, side: d, from: { r, c }, exitDir: d }
+  };
+}
+function pathFrom(r, c, d, n = 4) {
+  const res = [];
+  let cur = { r, c, d };
+  for (let k = 1; k <= n; k++) {
+    const s = stepOnce(cur.r, cur.c, cur.d);
+    res.push({ k, r: s.r, c: s.c, d: s.d, uturn: s.uturn, prev: { r: cur.r, c: cur.c } });
+    cur = s;
+  }
+  return res;
+}
+function buildGrid(rugs) {
+  const g = {};
+  for (const rug of rugs) for (const [r, c] of rug.cells) g[r + ',' + c] = rug;
+  return g;
+}
+function connectedArea(grid, r, c) {
+  const start = grid[r + ',' + c];
+  if (!start) return 0;
+  const owner = start.owner;
+  const seen = new Set([r + ',' + c]);
+  const stack = [[r, c]];
+  while (stack.length) {
+    const [cr, cc] = stack.pop();
+    for (const [dr, dc] of Object.values(DIRS)) {
+      const nr = cr + dr, nc = cc + dc, key = nr + ',' + nc;
+      if (grid[key] && grid[key].owner === owner && !seen.has(key)) {
+        seen.add(key);
+        stack.push([nr, nc]);
+      }
+    }
+  }
+  return seen.size;
+}
+function fineAt(grid, r, c, mover) {
+  const rug = grid[r + ',' + c];
+  if (!rug || rug.owner === mover) return 0;
+  return connectedArea(grid, r, c);
+}
+function evalDirection(rugs, pos, choice, mover) {
+  const grid = buildGrid(rugs);
+  const facing = turn(pos.d, choice);
+  const steps = pathFrom(pos.r, pos.c, facing, 4).map(s => {
+    const fine = fineAt(grid, s.r, s.c, mover);
+    return { ...s, p: PROB[s.k], fine };
+  });
+  let risk = 0, expected = 0;
+  for (const s of steps) {
+    if (s.fine > 0) risk += s.p;
+    expected += s.p * s.fine;
+  }
+  return { choice, facing, steps, risk, expected };
+}
+function evalAll(rugs, pos, mover) {
+  return CHOICES.map(ch => evalDirection(rugs, pos, ch, mover));
+}
+function safestChoice(results) {
+  const sorted = [...results].sort((a, b) => a.expected - b.expected || a.risk - b.risk);
+  if (Math.abs(sorted[0].expected - sorted[1].expected) < 1e-9 &&
+      Math.abs(sorted[0].risk - sorted[1].risk) < 1e-9) return null;
+  return sorted[0].choice;
+}
+function inBoard(r, c) { return r >= 1 && r <= SIZE && c >= 1 && c <= SIZE; }
+function placementOptions(rugs, pos) {
+  const grid = buildGrid(rugs);
+  const free = (r, c) => inBoard(r, c) && !grid[r + ',' + c] && !(r === pos.r && c === pos.c);
+  const out = [];
+  for (const [dr, dc] of Object.values(DIRS)) {
+    const a = [pos.r + dr, pos.c + dc];
+    if (!free(a[0], a[1])) continue;
+    for (const [er, ec] of Object.values(DIRS)) {
+      const b = [a[0] + er, a[1] + ec];
+      if (b[0] === pos.r && b[1] === pos.c) continue;
+      if (!free(b[0], b[1])) continue;
+      out.push({ a, b });
+    }
+  }
+  return out;
+}
+function coverage(steps, cells) {
+  let prob = 0; const hit = [];
+  for (const s of steps) {
+    if (cells.some(([r, c]) => r === s.r && c === s.c)) { prob += PROB[s.k]; hit.push(s.k); }
+  }
+  return { prob, hit };
+}
+const pct = (x) => (Math.round(x * 1000) / 10).toFixed(1).replace(/\.0$/, '') + '%';
+
+const mk = (list) => list.map((x, i) => ({ id: i + 1, owner: x[0], cells: [[x[1], x[2]], [x[3], x[4]]] }));
+const DEFENSE_STAGES = [
+  {
+    title: '길이 훤히 보여요',
+    pos: { r: 4, c: 4, d: 'N' },
+    rugs: mk([
+      ['lav', 4, 6, 4, 7], ['lav', 4, 1, 4, 2], ['rose', 6, 3, 6, 4],
+      ['mint', 6, 6, 7, 6], ['rose', 2, 2, 2, 3], ['mint', 6, 1, 7, 1]
+    ]),
+    tip: '세 방향의 앞쪽 칸에 양탄자가 몇 장 있는지 세어 보세요.'
+  },
+  {
+    title: '위험이 살짝 숨어 있어요',
+    pos: { r: 5, c: 4, d: 'N' },
+    rugs: mk([
+      ['rose', 4, 1, 3, 1], ['mint', 3, 4, 3, 5], ['lav', 5, 6, 5, 7],
+      ['rose', 7, 1, 7, 2], ['lav', 1, 6, 2, 6], ['mint', 7, 5, 7, 6]
+    ]),
+    tip: '바깥으로 나가면 U턴해서 옆줄로 돌아와요.'
+  },
+  {
+    title: 'U턴 뒤도 살펴봐요',
+    pos: { r: 3, c: 5, d: 'N' },
+    rugs: mk([
+      ['mint', 1, 4, 2, 4], ['lav', 3, 2, 3, 3], ['rose', 5, 2, 5, 3],
+      ['lav', 6, 5, 6, 6], ['mint', 5, 6, 5, 7], ['rose', 1, 1, 2, 1]
+    ]),
+    tip: '앞줄이 비어 보여도 U턴해서 돌아오는 칸을 꼭 확인해요.'
+  },
+  {
+    title: '두 길이 모두 U턴해요',
+    pos: { r: 4, c: 3, d: 'N' },
+    rugs: mk([
+      ['lav', 1, 2, 1, 3], ['mint', 4, 5, 4, 6], ['rose', 5, 2, 6, 2],
+      ['rose', 6, 5, 6, 6], ['lav', 2, 6, 3, 6], ['mint', 7, 3, 7, 4]
+    ]),
+    tip: '3, 4번째 칸이 어디로 이어지는지 따라가 보세요.'
+  },
+  {
+    title: '이어진 양탄자는 벌금이 커요',
+    pos: { r: 6, c: 3, d: 'N' },
+    rugs: mk([
+      ['mint', 4, 3, 4, 4], ['mint', 3, 4, 3, 5], ['rose', 6, 5, 7, 5],
+      ['lav', 6, 1, 6, 2], ['rose', 1, 6, 1, 7], ['lav', 2, 1, 3, 1]
+    ]),
+    tip: '같은 색 양탄자가 이어져 있으면 한꺼번에 벌금을 내요.',
+    twist: true
+  }
+];
+const ATTACK_EASY = [
+  { pos: { r: 1, c: 1, d: 'N' }, rugs: [], note: '모서리 밖으로 나가면 큰 곡선을 돌아 같은 칸으로 돌아와요.' },
+  { pos: { r: 2, c: 4, d: 'N' }, rugs: [], note: '위쪽 테두리 밖으로 나가면 옆줄로 U턴해서 내려와요.' },
+  { pos: { r: 4, c: 6, d: 'E' }, rugs: [], note: '오른쪽 테두리 밖으로 나가면 옆줄로 U턴해서 돌아와요.' },
+  { pos: { r: 7, c: 7, d: 'S' }, rugs: [], note: '모서리 밖으로 나가면 큰 곡선을 돌아 같은 칸으로 돌아와요.' },
+  { pos: { r: 6, c: 4, d: 'S' }, rugs: [], note: '아래쪽 테두리 밖으로 나가면 옆줄로 U턴해서 올라와요.' }
+];
+const ATTACK_HARD = [
+  {
+    pos: { r: 1, c: 1, d: 'N' },
+    rugs: mk([['me', 3, 1, 4, 1], ['me', 1, 5, 1, 6], ['me', 5, 4, 5, 5]])
+  },
+  {
+    pos: { r: 2, c: 3, d: 'E' },
+    rugs: mk([['me', 2, 5, 2, 6], ['me', 3, 1, 4, 1], ['me', 3, 3, 4, 3]])
+  },
+  {
+    pos: { r: 3, c: 5, d: 'E' },
+    rugs: mk([['me', 1, 5, 2, 5], ['me', 3, 7, 4, 7], ['me', 2, 6, 3, 6]])
+  }
+];
+
+(() => {
+'use strict';
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const esc = (s) => String(s).replace(/[&<>"]/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
+const reduced = () => window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const same = (a, b) => a && b && a[0] === b[0] && a[1] === b[1];
+const isHot = (k) => k === 2 || k === 3;
+const lvl = (p) => {
+  const n = Math.round(p * 6);
+  if (n === 0) return { n, t: '없음', v: '없어요', c: 'none' };
+  if (n <= 2) return { n, t: '낮음', v: '낮아요', c: 'warm' };
+  if (n === 3) return { n, t: '보통', v: '보통이에요', c: 'mid' };
+  return { n, t: '높음', v: '높아요', c: 'hot' };
+};
+const chip = (p, big) => { const l = lvl(p); return `<span class="chip chip-${l.c}${big ? ' chip-lg' : ''}">${l.t}</span>`; };
+const meter = (p) => {
+  const l = lvl(p);
+  return `<span class="meter meter-${l.c}" role="img" aria-label="가능성 ${l.t}">${[1, 2, 3, 4, 5, 6].map((i) => `<i${i <= l.n ? ' class="on"' : ''}></i>`).join('')}</span>`;
+};
+const maxFine = (ev) => Math.max(0, ...ev.steps.map((x) => x.fine));
+const fineTxt = (n) => (n ? n + '코인' : '없음');
+const where = (r, c) => `위에서 ${r}번째 줄, 왼쪽에서 ${c}번째 칸`;
+const svgI = (body, extra = '') => `<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ${extra}>${body}</svg>`;
+const ICON = {
+  F: svgI('<path d="M12 19V5M5 12l7-7 7 7"/>'),
+  L: svgI('<path d="M19 12H5M12 5l-7 7 7 7"/>'),
+  R: svgI('<path d="M5 12h14M12 5l7 7-7 7"/>'),
+  dice: svgI('<rect x="3.5" y="3.5" width="17" height="17" rx="4.5"/><circle cx="8.6" cy="8.6" r="1.3" fill="currentColor" stroke="none"/><circle cx="15.4" cy="15.4" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/>'),
+  eye: svgI('<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>'),
+  ok: svgI('<path d="M5 12.5l4.5 4.5L19 7.5"/>', 'stroke-width="2.6"'),
+  no: svgI('<path d="M6 6l12 12M18 6L6 18"/>', 'stroke-width="2.6"'),
+  star: svgI('<path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L12 16.9 6.8 19.7l1-5.9-4.3-4.1 5.9-.8z"/>', 'stroke-width="2"')
+};
+const M = 52, CS = 64, W = M * 2 + CS * SIZE, K = 42;
+const X0 = (c) => M + (c - 1) * CS, Y0 = (r) => M + (r - 1) * CS;
+const CX = (c) => X0(c) + CS / 2, CY = (r) => Y0(r) + CS / 2;
+const VEC = { N: [0, -1], E: [1, 0], S: [0, 1], W: [-1, 0] };
+const ANG = { N: 0, E: 90, S: 180, W: 270 };
+const RUG = {
+  mint: { f: '#9be7de', s: '#0d8f86', n: '민트' },
+  rose: { f: '#f7a9d1', s: '#c04f8a', n: '로즈' },
+  lav:  { f: '#c9bcf8', s: '#6650d0', n: '라벤더' },
+  me:   { f: '#8ea0ff', s: '#2a41b6', n: '내 양탄자' }
+};
+const TRACKS = (() => {
+  const top = M, bot = M + CS * SIZE, left = M, right = M + CS * SIZE;
+  const p = [];
+  for (const [a, b] of [[2, 3], [4, 5], [6, 7]]) p.push(`M${CX(a)} ${top} C${CX(a)} ${top - K} ${CX(b)} ${top - K} ${CX(b)} ${top}`);
+  for (const [a, b] of [[1, 2], [3, 4], [5, 6]]) p.push(`M${CX(a)} ${bot} C${CX(a)} ${bot + K} ${CX(b)} ${bot + K} ${CX(b)} ${bot}`);
+  for (const [a, b] of [[2, 3], [4, 5], [6, 7]]) p.push(`M${left} ${CY(a)} C${left - K} ${CY(a)} ${left - K} ${CY(b)} ${left} ${CY(b)}`);
+  for (const [a, b] of [[1, 2], [3, 4], [5, 6]]) p.push(`M${right} ${CY(a)} C${right + K} ${CY(a)} ${right + K} ${CY(b)} ${right} ${CY(b)}`);
+  p.push(`M${CX(1)} ${top} C${CX(1)} ${top - K} ${left - K} ${CY(1)} ${left} ${CY(1)}`);
+  p.push(`M${CX(SIZE)} ${bot} C${CX(SIZE)} ${bot + K} ${right + K} ${CY(SIZE)} ${right} ${CY(SIZE)}`);
+  return `<g aria-hidden="true">${p.map((d) => `<path class="track-band" d="${d}"/>`).join('')}${p.map((d) => `<path class="track-dash" d="${d}"/>`).join('')}</g>`;
+})();
+function routeGeom(s) {
+  const a = [CX(s.prev.c), CY(s.prev.r)], b = [CX(s.c), CY(s.r)];
+  if (!s.uturn) return { a, b, plain: true };
+  const ex = VEC[s.uturn.exitDir], hd = VEC[s.d], h = CS / 2;
+  const E0 = [a[0] + ex[0] * h, a[1] + ex[1] * h];
+  const E1 = [b[0] - hd[0] * h, b[1] - hd[1] * h];
+  const P1 = [E0[0] + ex[0] * K, E0[1] + ex[1] * K];
+  const P2 = [E1[0] - hd[0] * K, E1[1] - hd[1] * K];
+  return { a, b, E0, E1, P1, P2 };
+}
+function routeD(s) {
+  const g = routeGeom(s);
+  if (g.plain) return `M${g.a} L${g.b}`;
+  return `M${g.a} L${g.E0} C${g.P1} ${g.P2} ${g.E1} L${g.b}`;
+}
+function routePts(s) {
+  const g = routeGeom(s);
+  if (g.plain) return [g.a, g.b];
+  const pts = [g.a, g.E0];
+  for (let i = 1; i < 28; i++) {
+    const t = i / 28, u = 1 - t;
+    pts.push([
+      u * u * u * g.E0[0] + 3 * u * u * t * g.P1[0] + 3 * u * t * t * g.P2[0] + t * t * t * g.E1[0],
+      u * u * u * g.E0[1] + 3 * u * u * t * g.P1[1] + 3 * u * t * t * g.P2[1] + t * t * t * g.E1[1]
+    ]);
+  }
+  pts.push(g.E1, g.b);
+  return pts;
+}
+function rugSVG(rug, pop) {
+  const [[r1, c1], [r2, c2]] = rug.cells;
+  const p = RUG[rug.owner];
+  const x = Math.min(X0(c1), X0(c2)) + 4, y = Math.min(Y0(r1), Y0(r2)) + 4;
+  const w = (Math.abs(c1 - c2) + 1) * CS - 8, h = (Math.abs(r1 - r2) + 1) * CS - 8;
+  const horiz = r1 === r2;
+  let fr = '';
+  for (let i = 1; i <= 5; i++) {
+    if (horiz) { const yy = y + h * i / 6; fr += `M${x - 4} ${yy}H${x}M${x + w} ${yy}H${x + w + 4}`; }
+    else { const xx = x + w * i / 6; fr += `M${xx} ${y - 4}V${y}M${xx} ${y + h}V${y + h + 4}`; }
+  }
+  const dia = rug.cells.map(([r, c]) => {
+    const cx = CX(c), cy = CY(r);
+    return `<path d="M${cx} ${cy - 9}L${cx + 9} ${cy}L${cx} ${cy + 9}L${cx - 9} ${cy}Z" fill="rgba(255,255,255,.7)" stroke="${p.s}" stroke-width="1.6"/>`;
+  }).join('');
+  return `<g class="rug${pop ? ' pop' : ''}" data-owner="${rug.owner}">
+    <path d="${fr}" stroke="${p.s}" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="10" fill="${p.f}" stroke="${p.s}" stroke-width="2.5"/>
+    <rect x="${x + 6}" y="${y + 6}" width="${w - 12}" height="${h - 12}" rx="6" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="2" stroke-dasharray="3 4"/>
+    ${dia}</g>`;
+}
+function arrowSVG(d, fill) {
+  return `<polygon points="-6.5,-24.5 6.5,-24.5 0,-31.5" transform="rotate(${ANG[d]})" fill="${fill}"/>`;
+}
+function assamSVG(pos, choiceFacing) {
+  const cur = choiceFacing && choiceFacing === pos.d ? '#4262ff' : '#1c1c1e';
+  let s = `<g id="assam-g" class="assam-body" transform="translate(${CX(pos.c)} ${CY(pos.r)})">`;
+  s += `<g transform="scale(.82)"><use href="#assam-sym"/></g>`;
+  s += arrowSVG(pos.d, cur);
+  if (choiceFacing && choiceFacing !== pos.d) s += arrowSVG(choiceFacing, '#4262ff');
+  return s + '</g>';
+}
+function boardSVG(o) {
+  const out = [`<svg class="board-svg" viewBox="0 0 ${W} ${W}" role="group" aria-label="${esc(o.label || '마라케시 보드판 7×7')}" xmlns="http://www.w3.org/2000/svg">`];
+  out.push(TRACKS);
+  let cells = '';
+  for (let r = 1; r <= SIZE; r++) for (let c = 1; c <= SIZE; c++) {
+    cells += `<rect class="cell${(r + c) % 2 ? ' alt' : ''}" x="${X0(c)}" y="${Y0(r)}" width="${CS}" height="${CS}"/>`;
+  }
+  out.push(`<g aria-hidden="true">${cells}<rect class="board-edge" x="${M}" y="${M}" width="${CS * SIZE}" height="${CS * SIZE}"/></g>`);
+  (o.rugs || []).forEach((rug) => out.push(rugSVG(rug, rug.pop)));
+  const seen = {};
+  const badge = (h, extra) => {
+    const key = h.r + ',' + h.c; const n = seen[key] || 0; seen[key] = n + 1;
+    const cls = h.neutral ? 'gray' : isHot(h.k) ? 'hot' : 'warm';
+    const x = X0(h.c), y = Y0(h.r);
+    let s = `<g class="hl hl-${cls}${h.dim ? ' dim' : ''}${extra || ''}" aria-hidden="true">`;
+    if (n === 0) s += `<rect x="${x + 3}" y="${y + 3}" width="${CS - 6}" height="${CS - 6}" rx="9"/>`;
+    s += `<circle cx="${x + 13.5 + n * 22}" cy="${y + 14}" r="10"/><text x="${x + 13.5 + n * 22}" y="${y + 14.5}">${h.k}</text>`;
+    if (h.tag) s += `<text style="font-size:14px" x="${x + CS - 14}" y="${y + CS - 13}">${h.tag}</text>`;
+    return s + '</g>';
+  };
+  (o.hl || []).forEach((h) => out.push(badge(h)));
+  (o.routes || []).forEach((s) => out.push(`<path class="route" d="${routeD(s)}"/>`));
+  (o.hint || []).forEach((h) => out.push(badge({ ...h, tag: { F: '↑', L: '←', R: '→' }[h.ch] }, ' hint-cell')));
+  if (o.pos) out.push(assamSVG(o.pos, o.facing));
+  if (o.ring) out.push(`<circle class="ring" cx="${CX(o.ring.c)}" cy="${CY(o.ring.r)}" r="27"/>`);
+  (o.ghosts || []).forEach((g) => {
+    out.push(`<g><rect class="ghost" x="${X0(g.c) + 4}" y="${Y0(g.r) + 4}" width="${CS - 8}" height="${CS - 8}" rx="9"/>
+      <rect class="ghost-hit" data-ghost="${g.r},${g.c}" tabindex="0" role="button" aria-label="양탄자의 두 번째 칸: ${where(g.r, g.c)}" x="${X0(g.c)}" y="${Y0(g.r)}" width="${CS}" height="${CS}" rx="9"/></g>`);
+  });
+  (o.zones || []).forEach((z) => {
+    out.push(`<rect class="zone${z.sel ? ' sel' : ''}" data-zone="${z.r},${z.c}" tabindex="0" role="button" aria-label="양탄자를 놓을 수 있는 칸: ${where(z.r, z.c)}" aria-pressed="${z.sel ? 'true' : 'false'}" x="${X0(z.c) + 4}" y="${Y0(z.r) + 4}" width="${CS - 8}" height="${CS - 8}" rx="9"/>`);
+  });
+  out.push('</svg>');
+  return out.join('');
+}
+function bindBoard(mount, { onZone, onGhost }) {
+  mount.addEventListener('click', (e) => {
+    const kb = e.detail === 0;
+    const z = e.target.closest('[data-zone]');
+    if (z && onZone) return onZone(z.dataset.zone.split(',').map(Number), kb);
+    const g = e.target.closest('[data-ghost]');
+    if (g && onGhost) return onGhost(g.dataset.ghost.split(',').map(Number), kb);
+  });
+  mount.addEventListener('keydown', (e) => {
+    if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('[data-zone],[data-ghost]')) {
+      e.preventDefault(); e.target.dispatchEvent(new MouseEvent('click', { bubbles: true, detail: 0 }));
+    }
+  });
+}
+const lg = (cls, text, style = '') => `<li><span class="sw ${cls}" style="${style}"></span>${text}</li>`;
+const lgRug = (k) => lg('sw-rug', RUG[k].n, `background:${RUG[k].f};border-color:${RUG[k].s};width:26px;`);
+let modalOpener = null, modalOnClose = null;
+const INERT_SEL = '.promo,.nav,main,.rules,.footer';
+function closeModal(silent) {
+  const root = $('#modal-root');
+  if (!root.firstChild) return;
+  root.innerHTML = '';
+  $$(INERT_SEL).forEach((el) => { el.inert = false; });
+  document.removeEventListener('keydown', modalKeys, true);
+  const cb = modalOnClose; modalOnClose = null;
+  if (!silent && modalOpener && document.contains(modalOpener) && !modalOpener.disabled) modalOpener.focus();
+  if (cb && !silent) cb();
+}
+function modalKeys(e) {
+  const modal = $('#modal-root .modal');
+  if (!modal) return;
+  if (e.key === 'Escape') { e.preventDefault(); closeModal(); return; }
+  if (e.key === 'Tab') {
+    const f = $$('button', modal);
+    if (!f.length) return;
+    const first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    else if (!modal.contains(document.activeElement)) { e.preventDefault(); first.focus(); }
+  }
+}
+function openModal(m) {
+  closeModal(true);
+  modalOpener = document.activeElement;
+  const acts = m.actions || [{ label: '확인', kind: 'primary' }];
+  const root = $('#modal-root');
+  root.innerHTML = `<div class="scrim"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="m-title">
+    ${m.icon ? `<div class="m-icon ${m.icon}">${ICON[m.icon === 'ok' ? 'ok' : m.icon === 'no' ? 'no' : 'star']}</div>` : ''}
+    <h2 class="m-title" id="m-title">${m.title}</h2>
+    ${(m.msgs || []).map((t) => `<p class="m-msg">${t}</p>`).join('')}
+    ${m.stat ? `<div class="m-stat"><strong>${m.stat[0]}</strong><span>${m.stat[1]}</span></div>` : ''}
+    ${m.table || ''}
+    ${m.note ? `<p class="m-note">${m.note}</p>` : ''}
+    <div class="m-actions">${acts.map((a, i) => `<button type="button" class="btn ${a.kind === 'secondary' ? 'btn-secondary' : 'btn-primary'}" data-act="${i}">${a.label}</button>`).join('')}</div>
+  </div></div>`;
+  $$(INERT_SEL).forEach((el) => { el.inert = true; });
+  document.addEventListener('keydown', modalKeys, true);
+  const scrim = $('.scrim', root);
+  scrim.addEventListener('click', (e) => { if (e.target === scrim) closeModal(); });
+  $$('[data-act]', root).forEach((b) => b.addEventListener('click', () => {
+    const a = acts[+b.dataset.act];
+    modalOnClose = null;
+    closeModal(!!a.onClick);
+    if (a.onClick) a.onClick();
+  }));
+  modalOnClose = m.onClose || null;
+  const firstBtn = $('[data-act]', root); if (firstBtn) firstBtn.focus();
+}
+function riskTable(evs, pickCh) {
+  return `<table class="mtable"><thead><tr><th>방향</th><th>벌금 낼 가능성</th><th class="num">가장 큰 벌금</th></tr></thead><tbody>${
+    evs.map((e) => `<tr class="${e.choice === pickCh ? 'pick' : ''}"><td>${CHOICE_NAME[e.choice]}</td><td>${meter(e.risk)}${chip(e.risk)}</td><td class="num">${fineTxt(maxFine(e))}</td></tr>`).join('')
+  }</tbody></table>`;
+}
+function dirButtons(container, { onPick, pressed }) {
+  container.innerHTML = CHOICES.map((ch) => `<button type="button" class="btn btn-secondary dir-btn" data-ch="${ch}" aria-pressed="${pressed === ch}">${ICON[ch]}${CHOICE_NAME[ch]}</button>`).join('');
+  $$('[data-ch]', container).forEach((b) => b.addEventListener('click', () => onPick(b.dataset.ch)));
+}
+function markPressed(container, ch) {
+  $$('[data-ch]', container).forEach((b) => {
+    const on = b.dataset.ch === ch;
+    b.setAttribute('aria-pressed', on ? 'true' : 'false');
+    b.classList.toggle('btn-primary', on); b.classList.toggle('btn-secondary', !on);
+  });
+}
+function stepPills(container, n, cur, done, onPick) {
+  container.innerHTML = Array.from({ length: n }, (_, i) => `<button type="button" class="pill step-pill${done[i] ? ' done' : ''}" data-i="${i}" aria-pressed="${i === cur}" ${i === cur ? 'aria-current="true"' : ''} aria-label="${i + 1}번 문제${done[i] ? ' (해결)' : ''}">${i + 1}</button>`).join('');
+  $$('[data-i]', container).forEach((b) => b.addEventListener('click', () => onPick(+b.dataset.i)));
+}
+const POS_OPTS = [
+  { key: 'center', label: '중앙 (4,4)', r: 4, c: 4 },
+  { key: 'tl', label: '왼쪽 위 코너', r: 1, c: 1 },
+  { key: 'tr', label: '오른쪽 위 코너', r: 1, c: 7 },
+  { key: 'bl', label: '왼쪽 아래 코너', r: 7, c: 1 },
+  { key: 'br', label: '오른쪽 아래 코너', r: 7, c: 7 }
+];
+const PIPS = { 1: [[2, 2]], 2: [[1, 1], [3, 3]], 3: [[1, 1], [2, 2], [3, 3]], 4: [[1, 1], [1, 3], [3, 1], [3, 3]] };
+const ex = { posKey: 'center', pos: { r: 4, c: 4, d: 'N' }, choice: 'F', last: null, busy: false, revealed: false, tally: { 1: 0, 2: 0, 3: 0, 4: 0 } };
+const exMount = $('#board-explore');
+function drawDie(n) {
+  const die = $('#die');
+  die.innerHTML = PIPS[n].map(([r, c]) => `<i style="grid-area:${r} / ${c}"></i>`).join('');
+  die.setAttribute('aria-label', `주사위 ${n}`);
+}
+function exBoard() {
+  let hl = [], routes = [], facing = null, ring = null;
+  if (ex.choice) {
+    const ev = evalDirection([], ex.pos, ex.choice, 'me');
+    hl = ev.steps.map((s) => ({ r: s.r, c: s.c, k: s.k, neutral: true }));
+    routes = ev.steps.filter((s) => s.uturn);
+    facing = ev.facing;
+  } else if (ex.last) {
+    hl = ex.last.steps.map((s) => ({ r: s.r, c: s.c, k: s.k, dim: s.k !== ex.last.k }));
+    routes = ex.last.steps.filter((s) => s.uturn && s.k <= ex.last.k);
+    ring = { r: ex.pos.r, c: ex.pos.c };
+  }
+  exMount.innerHTML = boardSVG({ pos: ex.pos, hl, routes, facing, ring,
+    label: '경로 탐색기 보드판. 아쌈이 ' + where(ex.pos.r, ex.pos.c) + '에 있어요.' });
+}
+function exControls() {
+  const pp = $('#pos-pills');
+  pp.innerHTML = POS_OPTS.map((p) => `<button type="button" class="pill" data-pos="${p.key}" aria-pressed="${ex.posKey === p.key}">${p.label}</button>`).join('');
+  $$('[data-pos]', pp).forEach((b) => b.addEventListener('click', () => {
+    if (ex.busy) return;
+    const o = POS_OPTS.find((p) => p.key === b.dataset.pos);
+    ex.posKey = o.key; ex.pos = { r: o.r, c: o.c, d: 'N' }; ex.last = null;
+    exRefresh();
+    if (ex.choice) exHintText(); else $('#result-explore').textContent = '방향을 골라 보세요.';
+  }));
+  const dp = $('#dir-pills-explore');
+  dp.innerHTML = CHOICES.map((ch) => `<button type="button" class="pill" data-ch="${ch}" aria-pressed="${ex.choice === ch}">${ICON[ch]}${CHOICE_NAME[ch]}</button>`).join('');
+  $$('[data-ch]', dp).forEach((b) => b.addEventListener('click', () => {
+    if (ex.busy) return;
+    ex.choice = b.dataset.ch; ex.last = null;
+    exRefresh();
+    exHintText();
+  }));
+  const lab = $$('#panel-explore .field-label')[1].querySelector('span');
+  lab.textContent = `아쌈은 ${DIR_NAME[ex.pos.d]}을 보고 있어요`;
+  const btn = $('#btn-roll');
+  btn.innerHTML = `${ICON.dice}주사위 던지기`;
+  btn.disabled = ex.busy || !ex.choice;
+}
+function exHintText() {
+  const ev = evalDirection([], ex.pos, ex.choice, 'me');
+  const u = ev.steps.some((s) => s.uturn);
+  $('#result-explore').innerHTML = `<b>회색 칸 4개</b>가 아쌈이 갈 수 있는 곳이에요. 칸 위의 숫자는 주사위 눈이에요.${u ? ' 파란 점선 곡선은 보드 밖으로 나가서 U턴하는 길이에요.' : ''} 어느 칸에 도착할 가능성이 가장 높을지 생각해 보고 [주사위 던지기]를 눌러 보세요.`;
+}
+function exLegend() {
+  $('#ex-legend').innerHTML = (ex.choice || !ex.last
+    ? lg('sw-gray', '회색 칸: 아쌈이 갈 수 있는 칸 (숫자는 주사위 눈)')
+    : lg('sw-hot', '빨간색 칸: 주사위 2, 3이 나올 가능성이 높아요') + lg('sw-warm', '주황색 칸: 주사위 1, 4가 나올 가능성이 낮아요'))
+    + lg('sw-track', '보드 밖 점선: U턴 길');
+}
+function exRefresh() { exBoard(); exControls(); exLegend(); }
+function tallyInit() {
+  $('#tally').innerHTML = [1, 2, 3, 4].map((k) => {
+    const cls = ex.revealed ? (isHot(k) ? 'hot' : 'warm') : 'neutral';
+    return `<div class="tally-col ${cls}" data-k="${k}">
+      <div class="face ${cls}" aria-hidden="true">${k}</div>
+      <div class="tally-bar"><span></span></div>
+      <div class="tally-count">0번</div>
+      <div class="tally-where">${ex.revealed ? '나올 가능성<br>' + (isHot(k) ? '높음' : '낮음') : '&nbsp;'}</div></div>`;
+  }).join('');
+}
+function tallyUpdate() {
+  const total = ex.tally[1] + ex.tally[2] + ex.tally[3] + ex.tally[4];
+  [1, 2, 3, 4].forEach((k) => {
+    const col = $(`.tally-col[data-k="${k}"]`);
+    const share = total ? ex.tally[k] / total : 0;
+    $('.tally-bar span', col).style.height = Math.min(100, share * 200) + '%';
+    $('.tally-count', col).textContent = ex.tally[k] + '번';
+  });
+  $('#tally-total').textContent = total
+    ? (total >= 12 ? `총 ${total}번 던졌어요. 많이 던질수록 2와 3이 더 자주 나와요.` : `총 ${total}번 던졌어요.`)
+    : '아직 던지지 않았어요.';
+}
+async function rollDie(final) {
+  const die = $('#die');
+  die.classList.add('rolling');
+  const dur = reduced() ? 350 : 850, t0 = performance.now();
+  while (performance.now() - t0 < dur) { drawDie(1 + Math.floor(Math.random() * 4)); await sleep(90); }
+  die.classList.remove('rolling');
+  drawDie(final);
+}
+function tween(ms, fn) {
+  return new Promise((res) => {
+    if (reduced()) { fn(1); return res(); }
+    const t0 = performance.now();
+    const tick = (now) => {
+      const t = Math.min(1, (now - t0) / ms);
+      fn(t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
+      t < 1 ? requestAnimationFrame(tick) : res();
+    };
+    requestAnimationFrame(tick);
+  });
+}
+async function moveAssam(steps) {
+  const g = $('#assam-g', exMount);
+  if (!g) return;
+  for (const s of steps) {
+    const pts = routePts(s);
+    const cum = [0];
+    for (let i = 1; i < pts.length; i++) cum.push(cum[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]));
+    const total = cum[cum.length - 1];
+    await tween(s.uturn ? 720 : 300, (t) => {
+      const d = total * t; let i = 1;
+      while (i < cum.length - 1 && cum[i] < d) i++;
+      const seg = cum[i] - cum[i - 1] || 1, u = (d - cum[i - 1]) / seg;
+      g.setAttribute('transform', `translate(${pts[i - 1][0] + (pts[i][0] - pts[i - 1][0]) * u} ${pts[i - 1][1] + (pts[i][1] - pts[i - 1][1]) * u})`);
+    });
+  }
+}
+async function doRoll() {
+  if (ex.busy || !ex.choice) return;
+  ex.busy = true; $('#btn-roll').disabled = true;
+  const res = $('#result-explore');
+  const ev = evalDirection([], ex.pos, ex.choice, 'me');
+  const face = DIE_FACES[Math.floor(Math.random() * DIE_FACES.length)];
+  res.textContent = '주사위를 굴리는 중…';
+  await rollDie(face);
+  res.textContent = `주사위 ${face}! ${face}칸 이동해요.`;
+  const moved = ev.steps.slice(0, face);
+  await moveAssam(moved);
+  const end = moved[moved.length - 1];
+  ex.tally[face]++;
+  if (!ex.revealed) { ex.revealed = true; faceRow($('#faces'), false); tallyInit(); }
+  ex.last = { steps: ev.steps, k: face };
+  ex.pos = { r: end.r, c: end.c, d: end.d };
+  ex.posKey = null; ex.choice = null; ex.busy = false;
+  exRefresh(); tallyUpdate();
+  const u = moved.some((s) => s.uturn);
+  res.innerHTML = `주사위 <b>${face}</b>이(가) 나와서 ${face}칸 이동했어요. 이제 색깔이 나타났어요! <b>빨간색 칸</b>은 도착할 가능성이 높은 칸, <b>주황색 칸</b>은 낮은 칸이에요. 이번에는 ${isHot(face) ? '<b>빨간색 칸</b>' : '<b>주황색 칸</b>'}에 도착했어요.${u ? ' U턴 길을 돌아서 왔어요.' : ''} 여기서 다시 방향을 골라 보세요.`;
+}
+const D = { idx: 0, solved: DEFENSE_STAGES.map(() => false), hint: false, timer: null };
+const dfMount = $('#board-defense');
+function dfDraw() {
+  const st = DEFENSE_STAGES[D.idx];
+  const evs = evalAll(st.rugs, st.pos, 'me');
+  let hl = [], routes = [], hint = null;
+  if (D.solved[D.idx]) {
+    const best = evs.find((e) => e.choice === safestChoice(evs));
+    hl = best.steps.map((s) => ({ r: s.r, c: s.c, k: s.k }));
+    routes = best.steps.filter((s) => s.uturn);
+  }
+  if (D.hint) hint = evs.flatMap((e) => e.steps.map((s) => ({ r: s.r, c: s.c, k: s.k, ch: e.choice })));
+  dfMount.innerHTML = boardSVG({ pos: st.pos, rugs: st.rugs, hl, routes, hint,
+    label: `수비 모드 ${D.idx + 1}번 문제 보드판` });
+}
+function dfUI() {
+  const st = DEFENSE_STAGES[D.idx];
+  const lastStage = D.idx === DEFENSE_STAGES.length - 1;
+  stepPills($('#def-progress'), DEFENSE_STAGES.length, D.idx, D.solved, (i) => dfGo(i));
+  $('#def-stage-title').innerHTML = `<span style="display:block;font-size:14px;font-weight:500;color:var(--text3);letter-spacing:0">${D.idx + 1} / ${DEFENSE_STAGES.length}단계</span>${esc(st.title)}<span class="muted" style="display:block;font-weight:400;letter-spacing:0;margin-top:4px">${esc(st.tip)}</span>`;
+  dirButtons($('#def-dirs'), { onPick: dfAnswer });
+  const solved = D.solved[D.idx];
+  $$('#def-dirs button').forEach((b) => { b.disabled = solved; });
+  const hb = $('#btn-hint');
+  hb.innerHTML = `${ICON.eye}힌트 보기 (2초)`;
+  hb.disabled = D.hint || solved;
+  const nb = $('#btn-next-def');
+  nb.hidden = !solved;
+  nb.textContent = lastStage ? '처음부터 다시' : '다음 문제';
+  $('#def-legend').innerHTML = ['mint', 'rose', 'lav'].map(lgRug).join('') +
+    lg('sw-hot', '빨간색 칸: 주사위 2, 3') + lg('sw-warm', '주황색 칸: 주사위 1, 4');
+}
+function dfGo(i) {
+  clearTimeout(D.timer); D.hint = false; D.idx = i;
+  closeModal(true);
+  dfDraw(); dfUI();
+}
+function dfHint() {
+  if (D.hint || D.solved[D.idx]) return;
+  D.hint = true; dfDraw(); dfUI();
+  const idx = D.idx;
+  D.timer = setTimeout(() => { if (D.idx !== idx) return; D.hint = false; dfDraw(); dfUI(); }, 2000);
+}
+function dfAnswer(ch) {
+  if (D.solved[D.idx]) return;
+  const st = DEFENSE_STAGES[D.idx];
+  const evs = evalAll(st.rugs, st.pos, 'me');
+  const bestCh = safestChoice(evs);
+  const best = evs.find((e) => e.choice === bestCh);
+  const pick = evs.find((e) => e.choice === ch);
+  const lastStage = D.idx === DEFENSE_STAGES.length - 1;
+  if (ch === bestCh) {
+    clearTimeout(D.timer); D.hint = false;
+    D.solved[D.idx] = true;
+    dfDraw(); dfUI();
+    const allDone = D.solved.every(Boolean);
+    const msgs = ['벌금을 낼 가능성이 가장 낮고 벌금도 작아서, 가장 안전한 길이에요.'];
+    if (st.twist) msgs.push('같은 색 양탄자가 이어져 있으면 이어진 칸 수만큼 벌금이 커져요. 그래서 밟을 가능성뿐 아니라 벌금 크기도 함께 살펴야 해요.');
+    if (allDone) msgs.push('5문제를 모두 풀었어요! 이제 진짜 게임에서도 안전한 길을 찾을 수 있을 거예요.');
+    openModal({
+      icon: allDone ? 'star' : 'ok',
+      title: '완벽한 피난처!',
+      msgs,
+      stat: [chip(best.risk, true), '이 방향에서 벌금을 낼 가능성'],
+      table: riskTable(evs, ch),
+      note: '가능성이 낮고 벌금이 작은 길이 가장 안전해요.',
+      actions: [
+        { label: lastStage ? '처음부터 다시' : '다음 문제', kind: 'primary', onClick: () => dfGo(lastStage ? 0 : D.idx + 1) },
+        { label: '보드 다시 보기', kind: 'secondary' }
+      ]
+    });
+  } else {
+    const tie = pick.risk - best.risk < 1e-9;
+    openModal({
+      icon: 'no',
+      title: '앗, 위험해요!',
+      msgs: [
+        tie ? '선택한 방향은 밟을 가능성이 비슷하거나 낮아 보여도, 이어진 양탄자 때문에 벌금이 더 큽니다.'
+            : '선택한 방향은 벌금을 낼 가능성이 높습니다.',
+        '주사위 2, 3이 나오는 칸에 상대방 양탄자가 없는 방향은 어디일까요?'
+      ],
+      stat: tie ? [fineTxt(maxFine(pick)), '이 방향에서 내야 하는 가장 큰 벌금'] : [chip(pick.risk, true), '이 방향에서 벌금을 낼 가능성'],
+      note: '다시 골라 보세요. [힌트 보기]로 갈 수 있는 12칸을 잠깐 볼 수 있어요.',
+      actions: [
+        { label: '다시 풀어보기', kind: 'primary' },
+        { label: '힌트 보기 (2초)', kind: 'secondary', onClick: () => { $('#btn-hint').focus(); dfHint(); } }
+      ]
+    });
+  }
+}
+$('#btn-hint').addEventListener('click', dfHint);
+$('#btn-next-def').addEventListener('click', () => {
+  const lastStage = D.idx === DEFENSE_STAGES.length - 1;
+  if (lastStage) D.solved = DEFENSE_STAGES.map(() => false);
+  dfGo(lastStage ? 0 : D.idx + 1);
+});
+const A = {
+  mode: 'easy', idx: { easy: 0, hard: 0 },
+  solved: { easy: ATTACK_EASY.map(() => false), hard: ATTACK_HARD.map(() => false) },
+  sel: null, placed: null, choice: null, attempts: 0
+};
+const atMount = $('#board-attack');
+const atList = () => (A.mode === 'easy' ? ATTACK_EASY : ATTACK_HARD);
+const atSc = () => atList()[A.idx[A.mode]];
+const uniq = (arr) => arr.filter((a, i) => arr.findIndex((b) => same(a, b)) === i);
+const GUIDE = {
+  easy: '다음 차례에 상대방이 <b>[직진]</b>을 할 예정입니다! 주사위 2, 3이 나와 도착할 가능성이 가장 높은 <span class="hot">‘빨간색 칸’</span> 바로 옆에 내 양탄자를 설치해 길목을 막아보세요!',
+  hard: '상대방의 차례입니다! 상대방은 벌금을 피하기 위해 자신에게 가장 안전한 방향으로 아쌈을 틀 것입니다. 상대방이 선택할 <b>‘유일한 피난처’</b>를 찾아내고, 그 길목에 미리 <b>덫(양탄자)</b>을 놓아보세요!'
+};
+const AT_NOTE = {
+  hard: '파란색 양탄자는 내 것이에요. 상대방이 밟으면 상대방이 벌금을 내요. 각 방향 버튼을 눌러 보면 그 방향으로 갈 때 도착하는 칸이 표시돼요.'
+};
+function atDraw() {
+  const sc = atSc();
+  const rugs = sc.rugs.map((r) => ({ ...r }));
+  if (A.placed) rugs.push({ id: 99, owner: 'me', cells: A.placed, pop: true });
+  const dirKey = A.mode === 'easy' ? 'F' : A.choice;
+  let hl = [], routes = [], facing = null, zones = [], ghosts = [];
+  if (dirKey) {
+    const ev = evalDirection(sc.rugs, sc.pos, dirKey, 'opp');
+    hl = ev.steps.map((s) => ({ r: s.r, c: s.c, k: s.k }));
+    routes = ev.steps.filter((s) => s.uturn);
+    facing = ev.facing;
+  }
+  if (!A.placed && dirKey) {
+    const opts = placementOptions(sc.rugs, sc.pos);
+    zones = uniq(opts.map((o) => o.a)).map((a) => ({ r: a[0], c: a[1], sel: same(a, A.sel) }));
+    if (A.sel) ghosts = opts.filter((o) => same(o.a, A.sel)).map((o) => ({ r: o.b[0], c: o.b[1] }));
+  }
+  atMount.innerHTML = boardSVG({ pos: sc.pos, rugs, hl, routes, zones, ghosts, facing,
+    label: `공격 모드 ${A.mode === 'easy' ? '쉬운' : '어려운'} 난이도 ${A.idx[A.mode] + 1}번 문제 보드판` });
+}
+function atUI() {
+  const m = A.mode, sc = atSc(), solved = A.solved[m][A.idx[m]];
+  $$('#att-mode [data-mode]').forEach((b) => b.setAttribute('aria-pressed', b.dataset.mode === m ? 'true' : 'false'));
+  $('#att-guide').innerHTML = GUIDE[m];
+  stepPills($('#att-progress'), atList().length, A.idx[m], A.solved[m], (i) => atGo(i));
+  const stage = A.placed ? 4 : A.sel ? 3 : (m === 'easy' || A.choice) ? 2 : 1;
+  const labels = m === 'easy'
+    ? ['빨간색 칸(주사위 2, 3)이 어디인지 찾아요', '아쌈 바로 옆 점선 칸을 눌러요', '이어 붙일 칸을 눌러 양탄자를 완성해요']
+    : ['상대방이 고를 가장 안전한 방향을 눌러요', '그 길의 빨간색 칸 근처, 아쌈 옆 점선 칸을 눌러요', '이어 붙일 칸을 눌러 양탄자를 완성해요'];
+  $('#att-steps').innerHTML = labels.map((t, i) => {
+    const n = i + 1;
+    const done = n < stage, on = n === stage;
+    return `<li class="${done ? 'done' : on ? 'on' : ''}"><span class="n">${done ? '✓' : n}</span><span>${t}</span></li>`;
+  }).join('');
+  const df = $('#att-dir-field');
+  df.hidden = m !== 'hard';
+  if (m === 'hard') {
+    dirButtons($('#att-dirs'), { onPick: atChoose, pressed: A.choice });
+    markPressed($('#att-dirs'), A.choice);
+    $$('#att-dirs button').forEach((b) => { b.disabled = !!A.placed && solved; });
+  }
+  $('#att-legend').innerHTML = lg('sw-hot', '빨간색 칸: 주사위 2, 3이 나올 가능성이 높아요') + lg('sw-warm', '주황색 칸: 주사위 1, 4가 나올 가능성이 낮아요') +
+    lg('sw-zone', '점선 칸: 양탄자를 놓을 수 있는 곳') + lgRug('me').replace('내 양탄자', '내 양탄자(파란색)');
+  $('#btn-next-att').hidden = !solved;
+  const last = A.idx[m] === atList().length - 1;
+  $('#btn-next-att').textContent = last ? '처음 문제로' : '다음 문제';
+  $('#att-note').textContent = m === 'easy' ? '팁: ' + sc.note : AT_NOTE.hard;
+}
+function atGo(i) {
+  A.idx[A.mode] = i; A.sel = null; A.placed = null; A.choice = null; A.attempts = 0;
+  closeModal(true); atDraw(); atUI();
+}
+function atSwitch(mode) {
+  if (mode === A.mode) return;
+  A.mode = mode; A.sel = null; A.placed = null; A.choice = null; A.attempts = 0;
+  closeModal(true); atDraw(); atUI();
+}
+function atChoose(ch) {
+  if (A.placed) return;
+  A.choice = ch; A.sel = null;
+  atDraw(); atUI();
+}
+function atZone(cell, kb) {
+  if (A.placed) return;
+  A.sel = cell; atDraw(); atUI();
+  if (kb) { const g = atMount.querySelector('[data-ghost]'); if (g) g.focus(); }
+}
+function atGhost(cell) {
+  if (A.placed || !A.sel) return;
+  atPlace(A.sel, cell);
+}
+function atPlace(a, b) {
+  const m = A.mode, sc = atSc(), i = A.idx[m];
+  A.placed = [a, b]; A.attempts++;
+  const cells = [a, b];
+  const newRugs = [...sc.rugs, { id: 99, owner: 'me', cells }];
+  const lastI = i === atList().length - 1;
+  const nextAct = (label) => ({ label, kind: 'primary', onClick: () => atGo(lastI ? 0 : i + 1) });
+  const retry = { label: '다시 놓아보기', kind: 'primary', onClick: () => atReset(true) };
+  let win = false;
+  if (m === 'easy') {
+    const ev = evalDirection(sc.rugs, sc.pos, 'F', 'opp');
+    const cv = coverage(ev.steps, cells);
+    win = cv.hit.includes(2) && cv.hit.includes(3);
+    if (win) {
+      A.solved.easy[i] = true;
+      atDraw(); atUI();
+      openModal({
+        icon: 'ok', title: '성공!',
+        msgs: ['상대방이 내 양탄자를 밟을 가능성이 아주 높아요! 완벽한 길목 차단!', '주사위 2와 3이 나오는 빨간색 칸 두 칸을 모두 덮었어요. 2와 3은 가장 자주 나오는 눈이에요.'],
+        stat: [chip(cv.prob, true), '상대방이 내 양탄자를 밟을 가능성'],
+        actions: [nextAct(lastI ? '처음 문제로' : '다음 문제'), { label: '보드 다시 보기', kind: 'secondary' }]
+      });
+    } else {
+      atDraw(); atUI();
+      const hitTxt = cv.hit.length ? `주사위 ${cv.hit.join(', ')}이(가) 나오는 칸만 덮었어요.` : '주사위가 나올 칸을 하나도 덮지 못했어요.';
+      openModal({
+        icon: 'no', title: '아직 길목이 열려 있어요',
+        msgs: [`${hitTxt} 지금은 상대방이 내 양탄자를 밟을 가능성이 ${lvl(cv.prob).v}.`,
+               '빨간색 칸(주사위 2, 3) 두 칸을 함께 덮으면 가능성이 가장 높아져요. ' + sc.note],
+        stat: [chip(cv.prob, true), '상대방이 내 양탄자를 밟을 가능성'],
+        actions: [retry, { label: '보드 다시 보기', kind: 'secondary' }]
+      });
+    }
+    return;
+  }
+  const evs = evalAll(sc.rugs, sc.pos, 'opp');
+  const safeCh = safestChoice(evs);
+  const dirOK = A.choice === safeCh;
+  const evChosen = evs.find((e) => e.choice === A.choice);
+  const cv = coverage(evChosen.steps, cells);
+  win = dirOK && cv.prob >= 0.5 - 1e-9;
+  const spec = '상대방의 피난처를 잘못 예측했거나 주사위가 나올 가능성이 낮은 곳(1, 4번 칸)에 양탄자를 놓았습니다.';
+  if (win) {
+    A.solved.hard[i] = true;
+    atDraw(); atUI();
+    const after = evalDirection(newRugs, sc.pos, safeCh, 'opp');
+    openModal({
+      icon: 'ok', title: '대단해요!',
+      msgs: ['상대방의 생각을 완벽히 읽었습니다. 상대방은 안전하다고 생각하고 틀겠지만, 이제 내 양탄자를 밟을 가능성이 생겼어요!'],
+      stat: [`${chip(evChosen.risk, true)} → ${chip(after.risk, true)}`, `상대방이 ‘안전하다’고 믿은 ${CHOICE_NAME[safeCh]} 길에서 내 양탄자를 밟을 가능성`],
+      actions: [nextAct(lastI ? '처음 문제로' : '다음 문제'), { label: '보드 다시 보기', kind: 'secondary' }]
+    });
+  } else {
+    atDraw(); atUI();
+    const msgs = [spec];
+    let table = '';
+    if (!dirOK) {
+      if (A.attempts >= 2) {
+        msgs.push(`이번 문제에서 상대방에게 가장 안전한 방향은 <b>${CHOICE_NAME[safeCh]}</b>이에요. 아래 표에서 방향별 위험을 확인해 보세요.`);
+        table = riskTable(evs, safeCh);
+      } else {
+        msgs.push('각 방향 버튼을 눌러 보세요. 주사위 2, 3이 나오는 칸에 내 양탄자(파란색)가 없는 길이 상대방에게 가장 안전한 길이에요.');
+      }
+    } else {
+      msgs.push(`상대방이 갈 길은 잘 찾았어요! 그런데 지금은 그 길에서 내 양탄자를 밟을 가능성이 아직 ${lvl(cv.prob).v}. 주사위 2, 3이 나오는 칸(빨간색 칸)을 덮어 보세요.`);
+    }
+    openModal({
+      icon: 'no', title: '아쉬워요!', msgs, table,
+      actions: [retry, { label: '보드 다시 보기', kind: 'secondary' }]
+    });
+  }
+}
+function atReset(focusFirst) {
+  A.sel = null; A.placed = null;
+  atDraw(); atUI();
+  if (focusFirst) { const z = atMount.querySelector('[data-zone]'); if (z) z.focus(); }
+}
+bindBoard(atMount, { onZone: atZone, onGhost: atGhost });
+$$('#att-mode [data-mode]').forEach((b) => b.addEventListener('click', () => atSwitch(b.dataset.mode)));
+$('#btn-reset-place').addEventListener('click', () => atReset(false));
+$('#btn-next-att').addEventListener('click', () => {
+  const m = A.mode, last = A.idx[m] === atList().length - 1;
+  atGo(last ? 0 : A.idx[m] + 1);
+});
+const TABS = ['explore', 'defense', 'attack'];
+function selectTab(name, focus) {
+  TABS.forEach((t) => {
+    const on = t === name;
+    const tab = $('#tab-' + t), panel = $('#panel-' + t);
+    tab.setAttribute('aria-selected', on ? 'true' : 'false');
+    tab.tabIndex = on ? 0 : -1;
+    panel.hidden = !on;
+    if (on && focus) tab.focus();
+  });
+  closeModal(true);
+}
+TABS.forEach((t) => {
+  const tab = $('#tab-' + t);
+  tab.addEventListener('click', () => selectTab(t));
+  tab.addEventListener('keydown', (e) => {
+    const i = TABS.indexOf(t);
+    let n = null;
+    if (e.key === 'ArrowRight') n = (i + 1) % 3;
+    else if (e.key === 'ArrowLeft') n = (i + 2) % 3;
+    else if (e.key === 'Home') n = 0;
+    else if (e.key === 'End') n = 2;
+    if (n !== null) { e.preventDefault(); selectTab(TABS[n], true); }
+  });
+});
+const faceRow = (el, neutral) => { el.innerHTML = DIE_FACES.map((k) => `<span class="face ${neutral ? 'neutral' : isHot(k) ? 'hot' : 'warm'}">${k}</span>`).join(''); };
+faceRow($('#faces'), true); faceRow($('#rule-faces'), false);
+drawDie(2);
+tallyInit(); tallyUpdate();
+exRefresh(); exHintText();
+dfDraw(); dfUI();
+atDraw(); atUI();
+$('#btn-roll').addEventListener('click', doRoll);
+$('#btn-reset-tally').addEventListener('click', () => { ex.tally = { 1: 0, 2: 0, 3: 0, 4: 0 }; tallyUpdate(); });
+})();
+
+</script>
+</body>
+</html>
