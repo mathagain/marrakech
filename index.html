@@ -329,14 +329,11 @@ button { font-family: inherit; }
   </defs>
 </svg>
 
-<div class="promo"><span class="tag-yellow">사전 학습</span>게임을 하기 전에 미리 연습해요. 주사위 여섯 면은 1, 2, 2, 3, 3, 4예요.</div>
-
 <header class="nav">
   <div class="wrap nav-inner">
     <div class="brand">
       <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAABYCAMAAABCvhA7AAAAflBMVEXncjhDiJjvozBylUP7+/kAAABpjjg6gpPrp17n0a3aoFEyeHnyd2zupjxjjUWft5RDhZPuczjtoDRoc3L4fCR0lUc4iaU0fY+uyc7ecDv1fEjrsZQ4iZ2LpmJRlJ7oekQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAkDrzfAAAAIHRSTlP9/f37/gD//v7/IAYKn0//m7RNCAioj///ZJP/Iv8a9bwHGLUAAASBSURBVHjarZmLlpowEIZHMdxRNFB0qfj+b9kQQshlkox7+m97umD4HP9MJpMKjDMG1zELaxyBraPYwFgN0EUENWMtUwLOIMZVdDFq/YFzSt06TqEBMoqAA6u7M0E1DArNRhJ6FEGQyOeO7ehrRpP4oGeadktgJKJH1hHR3Y42ns6j6OFMVb2xNTpHwOa9sUYgZVmm0XlWXXy98wi63J4AxOzBQl8wVRG0DqXyozbR+TuFzhy0Oer/ou1hLrpNG/IOoZ2JKaPobKdlgXQ0p6vco1VTeYmhtSW3XOSckr0cvaCrw5kyhtZsCKwc7gVt/F5F0Sk2e3R20CVyEUAn2ONV1z4r0JKCzvKb9huvI2DAwEJXCXSK/b4+EAto6CwHP6G9NHHyzUu/ADqLpwkgDlREdBWPukbmjYbeyUGvayTbSOjd6YAd75F3CIqCTpDHK8dm0V8zyGq8xVdjDXiypdEJsi6q3hKBFHonX3JTyLZbujtiCn1sM9Um+XyWh9ClWwcjUaO7DPwHdHpv1Ghwc81zyEFnZHTpNh8pQ/QsWrphfUjp9UzOHbtZWC25eTIryQhf93zj0eD5sjpVMlp1weT++vp9Ewzk1v1B9mNQB44rMWjqgeOxn5OAxr4yDjR219Q7ev1JHTpGNTFN0pNOx7yi5R+4hgXbGPkJ18PgIyTQI3XUrAX4kRIvrn+V9L12e0KceBdx9Sck8Ro32LCeYT8Q10cOX9jSn1I6gmbQmnEGdYdBkGPMQv3bN4uexp8PUNgiRU4k6UO6iJqmlhHRp+Y4/tP0YkSyCHvZ0D9E9B0Jepqmwr/bs+a7qO9//YkTNf52Kn6BFkegqoygT3K3eP4CLfelOYye1L7khZ1Eqx0vgn6qXX8iocu5DJDhvnyBXosJ80OVHnxcso8uTiFDVjAH1xDZNInlebGNxjNEjoICyetlQbyWzE/lkbG8FtmH5J5gy9AZPnuyvQnndbFrXTNKXgpyLzMqnGyii1jlO2L3a/PeSYbRT6zRep782XQ1X9RUBtAT2sIhmeKjUTtM9BNH36ZU1Mrr0kMvTj6nou5xO6JeF3hT6/rRBHNv/n2G9Gofw2oSNpHWatwyuZjWzN6urBqyrF1DgyReqd4htcsUaxY+ka1AFj7O/OSYRduBLXS3hhTPUEIz3jTcriGzTrtPujwVOgfdfQap17NhgzrSlkG0mYKOJz7anrzZrSQO2lw4zxS6slfK7HjiTGNh5nQy6rmaP2BfRwz5Bv1di2MZMuHoD5UdmcbJ2cCaLxszRk0+/eUJvZ3sQ0vGQfMd3VLD9prgwELv5VdxsnVvqWSfLXdet/41vNlbd9JMvpgYx9JHmbU2NcYJLOnJvZX/wyFMTMGBW+dG8VT70jp4+k67fz9plrMe219FwI1xbpSmHDo+wXFvPxozbjxozNuhxvh9e2iAQemIYGhbdcd8Z1GKV4muztoFt7tmOOa5V6W5jnpwXzPFzXQJDHTRzDiEsogMs8GyIRL1HvbA2hj6CLsPvrt33cD9fn9F7dgG8jXwPjzsH87gc6MK4lG1AAAAAElFTkSuQmCC" alt="다시수학 로고" width="45" height="44">
       <span class="brand-name">마라케시</span>
-      <span class="tag-yellow">다시수학</span>
     </div>
     <div class="tabs" role="tablist" aria-label="학습 모드">
       <button class="pill" role="tab" id="tab-explore" aria-controls="panel-explore" aria-selected="true">경로 탐색기</button>
@@ -678,7 +675,7 @@ const DEFENSE_STAGES = [
   }
 ];
 const ATTACK_EASY = [
-  { pos: { r: 1, c: 1, d: 'N' }, rugs: [], note: '모서리 밖으로 나가면 큰 곡선을 돌아 같은 칸으로 돌아와요.' },
+  { pos: { r: 4, c: 4, d: 'N' }, rugs: [], note: '양탄자는 아쌈 바로 옆에서 시작해 두 칸까지만 놓을 수 있어요. 가까운 칸부터 살펴봐요.' },
   { pos: { r: 2, c: 4, d: 'N' }, rugs: [], note: '위쪽 테두리 밖으로 나가면 옆줄로 U턴해서 내려와요.' },
   { pos: { r: 4, c: 6, d: 'E' }, rugs: [], note: '오른쪽 테두리 밖으로 나가면 옆줄로 U턴해서 돌아와요.' },
   { pos: { r: 7, c: 7, d: 'S' }, rugs: [], note: '모서리 밖으로 나가면 큰 곡선을 돌아 같은 칸으로 돌아와요.' },
@@ -1280,13 +1277,17 @@ function atPlace(a, b) {
   if (m === 'easy') {
     const ev = evalDirection(sc.rugs, sc.pos, 'F', 'opp');
     const cv = coverage(ev.steps, cells);
-    win = cv.hit.includes(2) && cv.hit.includes(3);
+    const best = Math.max(...placementOptions(sc.rugs, sc.pos).map((o) => coverage(ev.steps, [o.a, o.b]).prob));
+    const full = best >= 0.6;
+    win = cv.prob >= best - 1e-9;
     if (win) {
       A.solved.easy[i] = true;
       atDraw(); atUI();
       openModal({
         icon: 'ok', title: '성공!',
-        msgs: ['상대방이 내 양탄자를 밟을 가능성이 아주 높아요! 완벽한 길목 차단!', '주사위 2와 3이 나오는 빨간색 칸 두 칸을 모두 덮었어요. 2와 3은 가장 자주 나오는 눈이에요.'],
+        msgs: full
+          ? ['상대방이 내 양탄자를 밟을 가능성이 아주 높아요! 완벽한 길목 차단!', '주사위 2와 3이 나오는 빨간색 칸 두 칸을 모두 덮었어요. 2와 3은 가장 자주 나오는 눈이에요.']
+          : ['이 문제에서 놓을 수 있는 자리 중 가능성이 가장 높은 곳이에요! 아쌈 바로 옆에서 이어 붙이는 양탄자는 두 칸까지만 닿거든요.', '빨간색 칸을 덮어서 상대방이 밟을 가능성을 가장 높였어요.'],
         stat: [chip(cv.prob, true), '상대방이 내 양탄자를 밟을 가능성'],
         actions: [nextAct(lastI ? '처음 문제로' : '다음 문제'), { label: '보드 다시 보기', kind: 'secondary' }]
       });
@@ -1296,7 +1297,8 @@ function atPlace(a, b) {
       openModal({
         icon: 'no', title: '아직 길목이 열려 있어요',
         msgs: [`${hitTxt} 지금은 상대방이 내 양탄자를 밟을 가능성이 ${lvl(cv.prob).v}.`,
-               '빨간색 칸(주사위 2, 3) 두 칸을 함께 덮으면 가능성이 가장 높아져요. ' + sc.note],
+               full ? '빨간색 칸(주사위 2, 3) 두 칸을 함께 덮으면 가능성이 가장 높아져요. ' + sc.note
+                    : '양탄자는 아쌈 바로 옆에서 시작해야 해요. 어떤 자리가 가능성이 가장 높을지 다시 찾아보세요.'],
         stat: [chip(cv.prob, true), '상대방이 내 양탄자를 밟을 가능성'],
         actions: [retry, { label: '보드 다시 보기', kind: 'secondary' }]
       });
